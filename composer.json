@@ -1,0 +1,18 @@
+{
+  "name": "orbiter/satellite-console",
+  "license": "MIT",
+  "description": "",
+  "require": {
+    "php": ">=7.2",
+    "orbiter/satellite": "*",
+    "psr/event-dispatcher": "^1.0",
+    "ulrichsg/getopt-php": "^3.2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Satellite\\KernelConsole": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
