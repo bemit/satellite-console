@@ -10,7 +10,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Satellite\\KernelConsole": "src"
+      "Satellite\\KernelConsole\\": "src"
     }
   },
   "minimum-stability": "dev",
