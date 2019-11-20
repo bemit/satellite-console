@@ -3,6 +3,7 @@
 namespace Satellite\KernelConsole;
 
 use GetOpt\GetOpt;
+use GetOpt\Option;
 use Satellite\Event;
 use Satellite\SystemLaunchEvent;
 
@@ -19,7 +20,12 @@ class Console {
 
         $cli = new static();
 
-        $evt = $cli->match();
+        $command = $cli->match();
+
+        $evt = new ConsoleEvent();
+        $evt->handler = $command->getHandler();
+        $evt->options = $command->getOptions();
+        $evt->operands = $command->getOperands();
 
         if($evt && $evt->handler) {
             Event::dispatch($evt);
@@ -35,16 +41,21 @@ class Console {
     /**
      * @throws \GetOpt\ArgumentException
      *
-     * @return \Satellite\KernelConsole\ConsoleEvent
+     * @return \GetOpt\Command
      */
     public function match() {
-        $get_opt = new GetOpt();
+        $get_opt = new GetOpt([(new Option('h', 'help', Getopt::NO_ARGUMENT))->setDescription('Displays help with all commands.')]);
 
         foreach(static::$commands as $cmd) {
             $get_opt->addCommand($cmd);
         }
 
         $get_opt->process();// throws: \GetOpt\ArgumentException
+
+        if($get_opt->getOption('h')) {
+            echo $get_opt->getHelpText();
+            exit;
+        }
 
         $command = $get_opt->getCommand();
         if(!$command) {
@@ -53,14 +64,6 @@ class Console {
             exit();
         }
 
-        // todo: check if `$command` or `get_opt` returns the operands, in the docu it was mixed usage without explanation
-        $evt = new ConsoleEvent();
-        $evt->handler = $command->getHandler();
-        //$evt->options = $get_opt->getOptions();
-        $evt->options = $command->getOptions();
-        //$evt->operands = $get_opt->getOperands();
-        $evt->operands = $command->getOperands();
-
-        return $evt;
+        return $command;
     }
 }
