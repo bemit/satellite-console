@@ -20,7 +20,7 @@ class Console {
 
         $cli = new static();
 
-        $command = $cli->match();
+        $command = $cli->process();
 
         $evt = new ConsoleEvent();
         $evt->handler = $command->getHandler();
@@ -43,7 +43,7 @@ class Console {
      *
      * @return \GetOpt\Command
      */
-    public function match() {
+    public function process() {
         $get_opt = new GetOpt([(new Option('h', 'help', Getopt::NO_ARGUMENT))->setDescription('Displays help with all commands.')]);
 
         foreach(static::$commands as $cmd) {
