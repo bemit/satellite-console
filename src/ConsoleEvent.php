@@ -15,9 +15,17 @@ class ConsoleEvent implements StoppableEventInterface {
     /**
      * @var array
      */
-    public $options;
+    public $options = [];
     /**
      * @var array
      */
-    public $operands;
+    public $operands = [];
+
+    public function getOptions() {
+        return $this->options;
+    }
+
+    public function getOperands() {
+        return $this->operands;
+    }
 }

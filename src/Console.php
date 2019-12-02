@@ -13,14 +13,14 @@ class Console {
      */
     protected static $commands = [];
 
-    public static function handle(SystemLaunchEvent $exec) {
+    public static function handle(GetOpt $get_opt, SystemLaunchEvent $exec) {
         if(!$exec->cli) {
             return $exec;
         }
 
         $cli = new static();
 
-        $command = $cli->process();
+        $command = $cli->process($get_opt);
 
         $evt = new ConsoleEvent();
         $evt->handler = $command->getHandler();
@@ -39,12 +39,14 @@ class Console {
     }
 
     /**
+     * @param GetOpt $get_opt
+     *
      * @throws \GetOpt\ArgumentException
      *
      * @return \GetOpt\Command
      */
-    public function process() {
-        $get_opt = new GetOpt([(new Option('h', 'help', Getopt::NO_ARGUMENT))->setDescription('Displays help with all commands.')]);
+    public function process(GetOpt $get_opt) {
+        $get_opt->addOption((new Option('h', 'help', Getopt::NO_ARGUMENT))->setDescription('Displays help with all commands.'));
 
         foreach(static::$commands as $cmd) {
             $get_opt->addCommand($cmd);
