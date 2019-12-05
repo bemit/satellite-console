@@ -6,7 +6,7 @@ use Satellite\SystemLaunchEvent;
 
 class CommandDiscovery {
 
-    public $container_id = 'routes';
+    public $container_id = 'commands';
 
     public function registerAnnotations(SystemLaunchEvent $exec, \GetOpt\GetOpt $get_opt, \Psr\Container\ContainerInterface $container) {
         // automatic registering of commands discovered by annotations
