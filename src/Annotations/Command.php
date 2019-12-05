@@ -14,7 +14,7 @@ final class Command {
      */
     public $name;
     /**
-     * @var string|callable autofilled from discovery when applied to a method
+     * @var string autofilled from discovery when applied to a method
      */
     public $handler;
     /**
