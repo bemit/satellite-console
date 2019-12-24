@@ -20,15 +20,21 @@ class CommandDiscovery {
         }
 
         foreach($commands as $command) {
-            if(!isset($command['class'], $command['annotation'])) {
+            /**
+             * @var \Orbiter\AnnotationsUtil\AnnotationResult $command
+             */
+            if(!$command->getClass() || !$command->getAnnotation()) {
                 continue;
             }
-            $annotation = $command['annotation'];
-            if(isset($command['method'])) {
+            /**
+             * @var \Satellite\KernelConsole\Annotations\Command $annotation
+             */
+            $annotation = $command->getAnnotation();
+            if($command->getMethod()) {
                 // If the annotation was targeted at an method, set the method as handler
-                $annotation->handler = $command['method'];
+                $annotation->handler = $command->getMethod();
             }
-            $cmd = CommandBuilder::make($command['class'], $annotation);
+            $cmd = CommandBuilder::make($command->getClass(), $annotation);
 
             if($cmd) {
                 $get_opt->addCommand($cmd);

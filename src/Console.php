@@ -56,6 +56,8 @@ class Console {
 
         if($get_opt->getOption('h')) {
             echo $get_opt->getHelpText();
+            echo 'Show options, arguments and info about one command: ' . PHP_EOL;
+            echo '  php cli <command-name> -h ' . PHP_EOL . PHP_EOL;
             exit;
         }
 

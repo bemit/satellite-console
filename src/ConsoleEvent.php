@@ -21,10 +21,16 @@ class ConsoleEvent implements StoppableEventInterface {
      */
     public $operands = [];
 
+    /**
+     * @return \GetOpt\Option[]
+     */
     public function getOptions() {
         return $this->options;
     }
 
+    /**
+     * @return \GetOpt\Argument[]
+     */
     public function getOperands() {
         return $this->operands;
     }
