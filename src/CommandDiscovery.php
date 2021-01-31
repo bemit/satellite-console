@@ -2,21 +2,16 @@
 
 namespace Satellite\KernelConsole;
 
-use Satellite\SystemLaunchEvent;
+use Psr\Log\LoggerInterface;
 
 class CommandDiscovery {
+    public const CONTAINER_ID = 'commands';
 
-    public $container_id = 'commands';
-
-    public function registerAnnotations(SystemLaunchEvent $exec, \GetOpt\GetOpt $get_opt, \Psr\Container\ContainerInterface $container) {
-        // automatic registering of commands discovered by annotations
-        if(!$exec->cli) {
-            return $exec;
-        }
-
-        $commands = $container->get($this->container_id);
+    public function registerAnnotations(\GetOpt\GetOpt $get_opt, \Psr\Container\ContainerInterface $container, LoggerInterface $logger) {
+        $commands = $container->get(self::CONTAINER_ID);
         if(!is_array($commands)) {
-            return $exec;
+            $logger->error(__CLASS__ . ' commands in container entry `' . self::CONTAINER_ID . '` must be array');
+            return;
         }
 
         foreach($commands as $command) {
@@ -40,7 +35,5 @@ class CommandDiscovery {
                 $get_opt->addCommand($cmd);
             }
         }
-
-        return $exec;
     }
 }

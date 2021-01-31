@@ -1,18 +1,23 @@
 {
-  "name": "orbiter/satellite-console",
-  "license": "MIT",
-  "description": "",
-  "require": {
-    "php": ">=7.2",
-    "orbiter/satellite": "*",
-    "psr/event-dispatcher": "^1.0",
-    "ulrichsg/getopt-php": "^3.2.2"
-  },
-  "autoload": {
-    "psr-4": {
-      "Satellite\\KernelConsole\\": "src"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "orbiter/satellite-console",
+    "license": "MIT",
+    "homepage": "https://bemit.codes",
+    "version": "0.1.0",
+    "description": "",
+    "require": {
+        "php": ">=7.4",
+        "psr/container": "^1.0",
+        "psr/container-implementation": "^1.0",
+        "psr/log": "^1.0",
+        "psr/log-implementation": "^1.0",
+        "orbiter/annotations-util": "0.3.x",
+        "ulrichsg/getopt-php": "^3.2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Satellite\\KernelConsole\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
