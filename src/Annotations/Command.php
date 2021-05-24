@@ -12,17 +12,17 @@ final class Command {
     /**
      * @var string
      */
-    public $name;
+    public string $name;
     /**
      * @var string autofilled from discovery when applied to a method
      */
-    public $handler;
+    public string $handler;
     /**
      * @var \Satellite\KernelConsole\Annotations\CommandOption[]
      */
-    public $options = [];
+    public array $options = [];
     /**
      * @var \Satellite\KernelConsole\Annotations\CommandOperand[]
      */
-    public $operands = [];
+    public array $operands = [];
 }
