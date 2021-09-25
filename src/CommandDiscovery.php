@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Satellite\KernelConsole;
 
@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 class CommandDiscovery {
     public const CONTAINER_ID = 'commands';
 
-    public function registerAnnotations(\GetOpt\GetOpt $get_opt, \Psr\Container\ContainerInterface $container, LoggerInterface $logger) {
+    public function registerAnnotations(\GetOpt\GetOpt $get_opt, \Psr\Container\ContainerInterface $container, LoggerInterface $logger): void {
         $commands = $container->get(self::CONTAINER_ID);
         if(!is_array($commands)) {
             $logger->error(__CLASS__ . ' commands in container entry `' . self::CONTAINER_ID . '` must be array');

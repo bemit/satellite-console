@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Satellite\KernelConsole;
 
@@ -7,11 +7,8 @@ use GetOpt;
 
 /**
  * Creates GetOpt Commands out of annotations
- *
- * @package Lib
  */
 class CommandBuilder {
-
     /**
      * Takes an annotated class and its command annotation, makes a get-opt command out of it
      *
@@ -20,7 +17,7 @@ class CommandBuilder {
      *
      * @return \GetOpt\Command
      */
-    public static function make($class, Annotations\Command $annotation) {
+    public static function make($class, Annotations\Command $annotation): GetOpt\Command {
         $cmd = new GetOpt\Command($annotation->name, [$class, $annotation->handler]);
         $cmd->addOptions(static::makeOptions($class, $annotation->options));
         $cmd->addOperands(static::makeOperands($class, $annotation->operands));
@@ -34,7 +31,7 @@ class CommandBuilder {
      *
      * @return GetOpt\Option[]
      */
-    protected static function makeOptions($class, $options) {
+    protected static function makeOptions($class, $options): array {
         $opts = [];
 
         foreach($options as $option) {
@@ -61,7 +58,7 @@ class CommandBuilder {
      *
      * @return GetOpt\Operand[]
      */
-    protected static function makeOperands($class, $operands) {
+    protected static function makeOperands($class, $operands): array {
         $ops = [];
 
         foreach($operands as $operand) {

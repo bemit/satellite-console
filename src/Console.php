@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Satellite\KernelConsole;
 
@@ -16,7 +16,7 @@ class Console {
         $this->get_opt = $get_opt;
     }
 
-    public static function addCommand($name, \GetOpt\Command $command) {
+    public static function addCommand($name, \GetOpt\Command $command): void {
         static::$commands[$name] = $command;
     }
 
