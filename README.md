@@ -47,4 +47,4 @@ By committing your code to the code repository you agree to release the code und
 
 ***
 
-Maintained by [Michael Becker](https://mlbr.xyz)
+Maintained by [Michael Becker](https://i-am-digital.eu)

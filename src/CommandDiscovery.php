@@ -2,18 +2,18 @@
 
 namespace Satellite\KernelConsole;
 
-use Psr\Log\LoggerInterface;
-
 class CommandDiscovery {
-    public const CONTAINER_ID = 'commands';
+    protected Console $console;
 
-    public function registerAnnotations(\GetOpt\GetOpt $get_opt, \Psr\Container\ContainerInterface $container, LoggerInterface $logger): void {
-        $commands = $container->get(self::CONTAINER_ID);
-        if(!is_array($commands)) {
-            $logger->error(__CLASS__ . ' commands in container entry `' . self::CONTAINER_ID . '` must be array');
-            return;
-        }
+    public function __construct(Console $console) {
+        $this->console = $console;
+    }
 
+    /**
+     * @param \Orbiter\AnnotationsUtil\AnnotationResult[] $commands
+     * @return void
+     */
+    public function registerAnnotations(array $commands): void {
         foreach($commands as $command) {
             /**
              * @var \Orbiter\AnnotationsUtil\AnnotationResult $command
@@ -32,7 +32,7 @@ class CommandDiscovery {
             $cmd = CommandBuilder::make($command->getClass(), $annotation);
 
             if($cmd) {
-                $get_opt->addCommand($cmd);
+                $this->console::addCommand($cmd->getName(), $cmd);
             }
         }
     }

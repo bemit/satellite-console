@@ -42,9 +42,7 @@ class Console {
 
         $command = $this->get_opt->getCommand();
         if(!$command) {
-            // no command
-            error_log('Console: no command');
-            exit();
+            throw new NoCommandFound('Console: no command');
         }
 
         return $command;
